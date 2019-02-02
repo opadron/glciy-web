@@ -1,5 +1,6 @@
 
 let http = require('http');
+let path = require('path');
 let { URL } = require('url');
 
 let YAML = require('yaml');
@@ -121,8 +122,10 @@ const combineSpec = (a, b) => {
     info(`Requesting ${ url }`);
 
     if (!url || url === '/' || url === '') {
-      url = '/develop';
+      url = '/develop.yaml';
     }
+
+    url = `/${ path.basename(url, '.yaml') }`;
 
     let payload = await (
       Promise.all(
